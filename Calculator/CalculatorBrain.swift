@@ -16,6 +16,7 @@ class CalculatorBrain {
     func performOperation(symbol: String) {
         if let operation = operations[symbol] {
             switch operation {
+                
             case .Constant(let value):
                 accumulator = value
                 
@@ -23,24 +24,28 @@ class CalculatorBrain {
             case .UnarOperation(let function):
                 accumulator = function(accumulator)
                 
-                
             case .BinaryOperation(let function):
-               
+                
                 if let _tempAccumulator = tempAccumulator {
                     accumulator = _tempAccumulator
                     tempAccumulator = nil
+                    
+                    pending = PendingBinaryOperationInfo(binaryFunction: function, firstOperand: accumulator, functionSymbol: symbol)
+                }
+                else {
+                    if pending != nil {
+                        pending!.binaryFunction = function
+                        pending!.functionSymbol = symbol
+                    }
+                    else {
+                        pending = PendingBinaryOperationInfo(binaryFunction: function, firstOperand: accumulator, functionSymbol: symbol)
+                    }
                 }
                 
-                pending = PendingBinaryOperationInfo(binaryFunction: function, firstOperand: accumulator, functionSymbol: symbol)
-            
             case .Equals:
                 if let _tempAccumulator = tempAccumulator {
                     accumulator = _tempAccumulator
                     tempAccumulator = nil
-                }
-                
-                if pending != nil && secondOperand != nil {
-                    executePending()
                 }
             }
         }
@@ -54,7 +59,9 @@ class CalculatorBrain {
     
     func reset() {
         accumulator = 0.0
+        tempAccumulator = nil
         pending = nil
+        secondOperand = nil
     }
     
     // MARK: - private

@@ -54,15 +54,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func performOperation(_ sender: UIButton) {
-        
+        // click some operation after clicking digits
+        // this step could be skipped if user click some operation, then click another operation right away
         if userIsInTheMiddleOfTyping {
             brain.setOperand(operand: displayValue)
-            
-            if let mathematicalSymbol = sender.currentTitle {
-                brain.performOperation(symbol: mathematicalSymbol)
-            }
-
             userIsInTheMiddleOfTyping = false
+        }
+        
+        if let mathematicalSymbol = sender.currentTitle {
+            brain.performOperation(symbol: mathematicalSymbol)
         }
         
         displayValue = brain.result
