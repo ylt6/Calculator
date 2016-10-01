@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func touchDigit(_ sender: UIButton) {
+    @IBAction private func touchDigit(_ sender: UIButton) {
         let digit = sender.currentTitle!
         if userIsInTheMiddleOfTyping {
             let textCurrentInDisplay = display.text!

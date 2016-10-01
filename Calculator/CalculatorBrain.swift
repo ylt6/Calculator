@@ -20,9 +20,16 @@ class CalculatorBrain {
             case .Constant(let value):
                 accumulator = value
                 
-                
             case .UnarOperation(let function):
-                accumulator = function(accumulator)
+                print("==== in UnarOperation ====")
+                if pending != nil && secondOperand != nil {
+                    print(1)
+                    secondOperand = function(secondOperand!)
+                } else {
+                    print(2)
+                    accumulator = function(accumulator)
+                }
+                print ("==== UnarOperation end ====")
                 
             case .BinaryOperation(let function):
                 
@@ -79,11 +86,16 @@ class CalculatorBrain {
     private var operations: Dictionary<String, Operation> = [
         "π": Operation.Constant(M_PI),
         "e": Operation.Constant(M_E),
+        
         "√": Operation.UnarOperation(sqrt),
+        "%": Operation.UnarOperation({ $0 * 0.01 }),
+        "+/-": Operation.UnarOperation({ -$0 }),
+        
         "×": Operation.BinaryOperation({ $0 * $1 }),
         "÷": Operation.BinaryOperation({ $0 / $1 }),
         "+": Operation.BinaryOperation({ $0 + $1 }),
         "−": Operation.BinaryOperation({ $0 - $1 }),
+        
         "=": Operation.Equals,
     ]
     
