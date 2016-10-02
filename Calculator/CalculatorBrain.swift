@@ -22,10 +22,8 @@ class CalculatorBrain {
                 
             case .UnarOperation(let function):
                 if pending != nil && secondOperand != nil {
-                    print(1)
                     secondOperand = function(secondOperand!)
                 } else {
-                    print(2)
                     accumulator = function(accumulator)
                 }
                 
