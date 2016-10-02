@@ -21,7 +21,6 @@ class CalculatorBrain {
                 accumulator = value
                 
             case .UnarOperation(let function):
-                print("==== in UnarOperation ====")
                 if pending != nil && secondOperand != nil {
                     print(1)
                     secondOperand = function(secondOperand!)
@@ -29,7 +28,6 @@ class CalculatorBrain {
                     print(2)
                     accumulator = function(accumulator)
                 }
-                print ("==== UnarOperation end ====")
                 
             case .BinaryOperation(let function):
                 
