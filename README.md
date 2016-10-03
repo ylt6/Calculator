@@ -1,5 +1,7 @@
 # Calculator
 
-iOS 10 / xcode 8 / swift 3
+An copy of out-of-box iOS calculator.
 
-Just for fun.
+Built with iOS 10 / xcode 8 / swift 3
+
+<img src="./demo/demo.png" align="left" height="667" width="375">
